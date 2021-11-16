@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,31 +27,40 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     int[][] puntosCoordenadas = new int[9][2];
     Button saveBtn;
     Button accessBtn;
+    int col[]= new int[3];
 
     @Override
     protected void onCreate(Bundle b) {
         super.onCreate(b);
         setContentView(R.layout.activity_main);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        col[0] = width/5;
+        col[1] = width/2;
+        col[2] = width*4/5;
+
         //Fila 1
-        puntosCoordenadas[0][0] = 350;
-        puntosCoordenadas[1][0] = 750;
-        puntosCoordenadas[2][0] = 1150;
+        puntosCoordenadas[0][0] = col[0];
+        puntosCoordenadas[1][0] = col[1];
+        puntosCoordenadas[2][0] = col[2];
         puntosCoordenadas[0][1] = 1000;
         puntosCoordenadas[1][1] = 1000;
         puntosCoordenadas[2][1] = 1000;
 
         //Fila 2
-        puntosCoordenadas[3][0] = 350;
-        puntosCoordenadas[4][0] = 750;
-        puntosCoordenadas[5][0] = 1150;
+        puntosCoordenadas[3][0] = col[0];
+        puntosCoordenadas[4][0] = col[1];
+        puntosCoordenadas[5][0] = col[2];
         puntosCoordenadas[3][1] = 1400;
         puntosCoordenadas[4][1] = 1400;
         puntosCoordenadas[5][1] = 1400;
 
         //Fila 3
-        puntosCoordenadas[6][0] = 350;
-        puntosCoordenadas[7][0] = 750;
-        puntosCoordenadas[8][0] = 1150;
+        puntosCoordenadas[6][0] = col[0];
+        puntosCoordenadas[7][0] = col[1];
+        puntosCoordenadas[8][0] = col[2];
         puntosCoordenadas[6][1] = 1800;
         puntosCoordenadas[7][1] = 1800;
         puntosCoordenadas[8][1] = 1800;
@@ -72,6 +82,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     patronGuardado = puntosUsados;
                     str = "Patron guardado!"+patronGuardado;
                     eventTV.setText(patronGuardado+"");
+                } else {
+                    str = "No has pulsado nada";
                 }
                 puntosUsados.clear();
                 l.invalidate();
@@ -132,7 +144,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     }
 
     private void stickyLine(int xPos, int yPos) {
-        if (nearTo(xPos, 350)) {
+        if (nearTo(xPos, col[0])) {
             if (nearTo(yPos, 1000) && puntosUsados.indexOf(0) == -1) {
                 eventTV.setText("Punto 1");
                 puntosUsados.add(0);
@@ -146,7 +158,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                 puntosUsados.add(6);
             }
         }
-        if (nearTo(xPos, 750)) {
+        if (nearTo(xPos, col[1])) {
             if (nearTo(yPos, 1000) && puntosUsados.indexOf(1) == -1) {
                 eventTV.setText("Punto 2");
                 puntosUsados.add(1);
@@ -160,7 +172,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                 puntosUsados.add(7);
             }
         }
-        if (nearTo(xPos, 1150)) {
+        if (nearTo(xPos, col[2])) {
             if (nearTo(yPos, 1000) && puntosUsados.indexOf(2) == -1) {
                 eventTV.setText("Punto 3");
                 puntosUsados.add(2);
