@@ -117,9 +117,14 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             eventTV.setText("");
         }
         if (e.getAction() == MotionEvent.ACTION_UP) {
-            x = getCoord(puntosUsados.get(puntosUsados.size()-1),0);
-            y = getCoord(puntosUsados.get(puntosUsados.size()-1),1);
-            eventTV.setText("");
+            if (puntosUsados.size() == 1) {
+                puntosUsados.clear();
+            }
+            if (puntosUsados.size()>=2){
+                x = getCoord(puntosUsados.get(puntosUsados.size()-1),0);
+                y = getCoord(puntosUsados.get(puntosUsados.size()-1),1);
+                eventTV.setText("");
+            }
         }
         l.invalidate();
         stickyLine(x, y);
