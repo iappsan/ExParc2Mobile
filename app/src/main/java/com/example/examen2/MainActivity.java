@@ -23,8 +23,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     private Lienzo l;
     TextView eventTV;
     TextView patronTV;
-    ArrayList<Integer> puntosUsados = new ArrayList<Integer>();
-    ArrayList<Integer> patronGuardado = new ArrayList<Integer>();
+    private ArrayList<Integer> puntosUsados = new ArrayList<Integer>();
+    String savedPoints = "";
+    String actualPoints = "";
     int[][] puntosCoordenadas = new int[9][2];
     Button saveBtn;
     Button accessBtn;
@@ -83,45 +84,46 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         accessBtn = (Button) findViewById(R.id.accessBtn);
 
         saveBtn.setOnClickListener(guardarPatron);
+        accessBtn.setOnClickListener(verificaAcceso);
+    }
 
-        accessBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean itsEqual = true;
-                patronTV.setText(patronGuardado + "");
-                String str = "";
-                if (patronGuardado.size() > 0) {
-                    if (puntosUsados == patronGuardado) {
-                        str = "Acediendo";
-                    } else {
-                        str = "Los patrones no son iguales!\n" + patronGuardado + "\n" + puntosUsados;
-                        itsEqual = false;
-                    }
+    public View.OnClickListener verificaAcceso = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            boolean itsEqual = true;
+            patronTV.setText(savedPoints);
+            String str = "";
+            String temp = puntosUsados+"";
+            if (savedPoints.length() > 0) {
+                if (temp.equals(savedPoints)) {
+                    str = "Acediendo";
                 } else {
-                    str = "No hay ningun patron guardado!";
+                    str = "Los patrones no son iguales!\n" + savedPoints + "\n" + temp;
                     itsEqual = false;
                 }
-                if (itsEqual) {
+            } else {
+                str = "No hay ningun patron guardado!";
+                itsEqual = false;
+            }
+            if (itsEqual) {
 //                    Intent i = new Intent(getApplicationContext(), acceso.class);
 //                    startActivity(i);
-                    str = "Es igual\n" + patronGuardado + "\n" + puntosUsados;
-                }
-                Toast t = Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT);
-                t.show();
-                puntosUsados.clear();
-                l.invalidate();
+                str = str + "\nEs igual\n" + savedPoints + "\n" + temp;
             }
-        });
-    }
+            Toast t = Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT);
+            t.show();
+            puntosUsados.clear();
+            l.invalidate();
+        }
+    };
 
     public View.OnClickListener guardarPatron = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             String str = "";
             if (puntosUsados.size() > 1) {
-                patronGuardado = puntosUsados;
-                str = "Patron guardado!" + patronGuardado;
-                patronTV.setText(patronGuardado + "");
+                savedPoints = puntosUsados + "";
+                str = "Patron guardado!" + savedPoints;
             } else {
                 str = "No has pulsado nada";
             }
@@ -130,6 +132,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             Toast t = Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT);
             t.setGravity(Gravity.CENTER, 0, 0);
             t.show();
+            patronTV.setText(savedPoints);
         }
     };
 
@@ -147,7 +150,6 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             if (puntosUsados.size() >= 2) {
                 x = getCoord(puntosUsados.get(puntosUsados.size() - 1), 0);
                 y = getCoord(puntosUsados.get(puntosUsados.size() - 1), 1);
-                eventTV.setText("");
             }
         }
         l.invalidate();
