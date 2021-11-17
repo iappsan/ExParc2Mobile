@@ -37,6 +37,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         super.onCreate(b);
         setContentView(R.layout.activity_main);
 
+        ConSQLite conn = new ConSQLite(this, "db_usuarios", null, 1);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;

@@ -5,9 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
-public class ConSQLite extends SQLiteOpenHelper {
+import com.example.examen2.utilidades.Utilidades;
 
-    final String CREATE_USER_TABLE = "CREATE TABLE usuarios (id INTEGER, nombre TEXT, telefono TEXT)";
+public class ConSQLite extends SQLiteOpenHelper {
 
     public ConSQLite(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -15,7 +15,7 @@ public class ConSQLite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(Utilidades.CREATE_USER_TABLE);
     }
 
     @Override
