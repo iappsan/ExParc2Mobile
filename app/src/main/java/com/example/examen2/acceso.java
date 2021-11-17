@@ -14,6 +14,8 @@ public class acceso extends Activity {
         super.onCreate(b);
         setContentView(R.layout.activity_acceso);
 
+        ConSQLite conn = new ConSQLite(this, "db_usuarios", null, 1);
+
         backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -106,8 +106,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                 itsEqual = false;
             }
             if (itsEqual) {
-//                    Intent i = new Intent(getApplicationContext(), acceso.class);
-//                    startActivity(i);
+                    Intent i = new Intent(getApplicationContext(), acceso.class);
+                    startActivity(i);
                 str = str + "\nEs igual\n" + savedPoints + "\n" + temp;
             }
             Toast t = Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT);
